@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>المفضلة — Nestora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header class="navbar scrolled" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><div class="logo-mark"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 4L4 14V32H14V22H22V32H32V14L18 4Z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1.2" stroke-linejoin="round"/><circle cx="18" cy="14" r="3" fill="white"/></svg></div><div class="logo-text"><span class="logo-name">Nestora</span><span class="logo-tagline">عقارات راقية</span></div></a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">الرئيسية</a>
+      <a href="properties.html" class="nav-link">العقارات</a>
+      <a href="agents.html" class="nav-link">الوكلاء</a>
+      <a href="about.html" class="nav-link">من نحن</a>
+      <a href="contact.html" class="nav-link">تواصل معنا</a>
+    </nav>
+    <div class="nav-actions"><a href="favorites.html" class="btn-fav"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="fav-count" id="favCount">0</span></a><a href="contact.html" class="btn btn-primary">أضف عقارك</a></div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu"><a href="index.html" class="nav-link">الرئيسية</a><a href="properties.html" class="nav-link">العقارات</a></div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">الرئيسية</a> ← <span>المفضلة</span></div>
+    <h1>العقارات المفضلة</h1>
+    <p>العقارات التي حفظتها لمراجعتها لاحقاً</p>
+  </div>
+</div>
+
+<div class="container" style="padding:48px 24px">
+  <div id="favContent"></div>
+</div>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-mark"><svg width="32" height="32" viewBox="0 0 36 36" fill="none"><path d="M18 4L4 14V32H14V22H22V32H32V14L18 4Z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1.2" stroke-linejoin="round"/><circle cx="18" cy="14" r="3" fill="white"/></svg></div><div class="logo-text"><span class="logo-name" style="color:white">Nestora</span><span class="logo-tagline">عقارات راقية</span></div></a><p class="footer-desc">منصة عقارات فلسطينية متخصصة.</p></div>
+    <div class="footer-col"><h4>روابط</h4><a href="index.html">الرئيسية</a><a href="properties.html">العقارات</a></div>
+    <div class="footer-col"><h4>أنواع</h4><a href="#">شقق</a><a href="#">فلل</a></div>
+    <div class="footer-col"><h4>تواصل</h4><p>📞 +970 2 298 0000</p></div>
+  </div>
+  <div class="footer-bottom"><div class="container"><span>© 2026 Nestora. جميع الحقوق محفوظة</span><span>صُنع بـ ❤️ في فلسطين</span></div></div>
+</footer>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+<script>
+function renderFavorites() {
+  const favIds = getFavorites();
+  const cont = document.getElementById('favContent');
+  if (favIds.length === 0) {
+    cont.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🤍</div>
+        <h3>لا توجد عقارات في المفضلة بعد</h3>
+        <p>أضف عقارات إلى مفضلتك بالنقر على أيقونة القلب في أي عقار</p>
+        <a href="properties.html" class="btn btn-primary">استعرض العقارات</a>
+      </div>`;
+    return;
+  }
+  const favProps = properties.filter(p => favIds.includes(p.id));
+  cont.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px">
+      <p style="color:var(--text-mid)">${favProps.length} عقار محفوظ في مفضلتك</p>
+      <button onclick="clearFavs()" style="background:none;border:1.5px solid var(--border);border-radius:50px;padding:8px 18px;font-family:var(--font);font-size:.85rem;color:var(--text-mid);cursor:pointer;font-weight:700">🗑️ مسح الكل</button>
+    </div>
+    <div class="properties-grid">${favProps.map(p => buildPropertyCard(p)).join('')}</div>`;
+}
+
+function clearFavs() {
+  localStorage.setItem('nestora_favorites','[]');
+  updateFavCount();
+  renderFavorites();
+  showToast('تم مسح المفضلة');
+}
+
+renderFavorites();
+</script>
+</body>
+</html>

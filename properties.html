@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>العقارات — Nestora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="navbar scrolled" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <path d="M18 4L4 14V32H14V22H22V32H32V14L18 4Z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="18" cy="14" r="3" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">Nestora</span>
+        <span class="logo-tagline">عقارات راقية</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">الرئيسية</a>
+      <a href="properties.html" class="nav-link active">العقارات</a>
+      <a href="agents.html" class="nav-link">الوكلاء</a>
+      <a href="about.html" class="nav-link">من نحن</a>
+      <a href="contact.html" class="nav-link">تواصل معنا</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="favorites.html" class="btn-fav">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="fav-count" id="favCount">0</span>
+      </a>
+      <a href="contact.html" class="btn btn-primary">أضف عقارك</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link">الرئيسية</a>
+    <a href="properties.html" class="nav-link active">العقارات</a>
+    <a href="agents.html" class="nav-link">الوكلاء</a>
+    <a href="about.html" class="nav-link">من نحن</a>
+    <a href="contact.html" class="nav-link">تواصل معنا</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">الرئيسية</a> ← <span>العقارات</span></div>
+    <h1>جميع العقارات</h1>
+    <p>استعرض آلاف العقارات في كل مدن فلسطين</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="props-layout">
+    <!-- FILTER SIDEBAR -->
+    <aside class="filter-sidebar">
+      <h3>🔍 تصفية النتائج</h3>
+
+      <div class="filter-group">
+        <label>حالة العقار</label>
+        <div class="radio-group">
+          <button class="radio-btn active" data-filter="status" data-value="">الكل</button>
+          <button class="radio-btn" data-filter="status" data-value="للبيع">للبيع</button>
+          <button class="radio-btn" data-filter="status" data-value="للإيجار">للإيجار</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>نوع العقار</label>
+        <select id="filterType">
+          <option value="">كل الأنواع</option>
+          <option>شقة</option>
+          <option>فيلا</option>
+          <option>مكتب</option>
+          <option>أرض</option>
+          <option>محل تجاري</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>المدينة</label>
+        <select id="filterCity">
+          <option value="">كل المدن</option>
+          <option>رام الله</option>
+          <option>نابلس</option>
+          <option>القدس</option>
+          <option>الخليل</option>
+          <option>بيت لحم</option>
+          <option>جنين</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>عدد الغرف</label>
+        <div class="radio-group">
+          <button class="radio-btn active" data-filter="rooms" data-value="0">الكل</button>
+          <button class="radio-btn" data-filter="rooms" data-value="1">1+</button>
+          <button class="radio-btn" data-filter="rooms" data-value="3">3+</button>
+          <button class="radio-btn" data-filter="rooms" data-value="5">5+</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>نطاق السعر</label>
+        <select id="filterPrice">
+          <option value="">أي سعر</option>
+          <option value="0-50000">أقل من $50,000</option>
+          <option value="50000-150000">$50,000 – $150,000</option>
+          <option value="150000-400000">$150,000 – $400,000</option>
+          <option value="400000-9999999">أكثر من $400,000</option>
+        </select>
+      </div>
+
+      <button class="filter-reset" id="filterReset">↺ إعادة تعيين الفلاتر</button>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="props-main">
+      <div class="props-toolbar">
+        <div class="props-count">عرض <strong id="countDisplay">0</strong> عقار</div>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">الترتيب الافتراضي</option>
+          <option value="price-asc">السعر: من الأقل</option>
+          <option value="price-desc">السعر: من الأعلى</option>
+          <option value="size-desc">المساحة: الأكبر</option>
+          <option value="rooms-desc">الغرف: الأكثر</option>
+        </select>
+      </div>
+      <div class="properties-grid" id="propsGrid"></div>
+      <div id="emptyMsg" style="display:none" class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <h3>لا توجد نتائج</h3>
+        <p>جرب تعديل فلاتر البحث للحصول على نتائج أفضل</p>
+        <button class="btn btn-primary" onclick="resetAll()">إعادة تعيين الفلاتر</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer" style="margin-top:60px">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-mark"><svg width="32" height="32" viewBox="0 0 36 36" fill="none"><path d="M18 4L4 14V32H14V22H22V32H32V14L18 4Z" fill="var(--gold)" stroke="var(--gold)" stroke-width="1.2" stroke-linejoin="round"/><circle cx="18" cy="14" r="3" fill="white"/></svg></div>
+        <div class="logo-text"><span class="logo-name" style="color:white">Nestora</span><span class="logo-tagline">عقارات راقية</span></div>
+      </a>
+      <p class="footer-desc">منصة عقارات فلسطينية متخصصة.</p>
+    </div>
+    <div class="footer-col"><h4>روابط</h4><a href="index.html">الرئيسية</a><a href="properties.html">العقارات</a><a href="about.html">من نحن</a></div>
+    <div class="footer-col"><h4>أنواع</h4><a href="#">شقق</a><a href="#">فلل</a><a href="#">مكاتب</a></div>
+    <div class="footer-col"><h4>تواصل</h4><p>📞 +970 2 298 0000</p><p>✉️ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4adaaa2ab84aaa1b7b0abb6a5eab4b7">[email&#160;protected]</a></p></div>
+  </div>
+  <div class="footer-bottom"><div class="container"><span>© 2026 Nestora. جميع الحقوق محفوظة</span><span>صُنع بـ ❤️ في فلسطين</span></div></div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="data.js"></script>
+<script src="main.js"></script>
+<script>
+let activeFilters = { status: '', type: '', city: '', rooms: 0, price: '' };
+let sortMode = 'default';
+
+function applyFilters() {
+  let result = [...properties];
+  if (activeFilters.status) result = result.filter(p => p.status === activeFilters.status);
+  if (activeFilters.type) result = result.filter(p => p.type === activeFilters.type);
+  if (activeFilters.city) result = result.filter(p => p.city === activeFilters.city);
+  if (activeFilters.rooms > 0) result = result.filter(p => p.rooms >= activeFilters.rooms);
+  if (activeFilters.price) {
+    const [min, max] = activeFilters.price.split('-').map(Number);
+    result = result.filter(p => p.price >= min && p.price <= max);
+  }
+  // Sort
+  if (sortMode === 'price-asc') result.sort((a,b) => a.price - b.price);
+  else if (sortMode === 'price-desc') result.sort((a,b) => b.price - a.price);
+  else if (sortMode === 'size-desc') result.sort((a,b) => b.size - a.size);
+  else if (sortMode === 'rooms-desc') result.sort((a,b) => b.rooms - a.rooms);
+
+  renderResults(result);
+}
+
+function renderResults(list) {
+  const grid = document.getElementById('propsGrid');
+  const empty = document.getElementById('emptyMsg');
+  document.getElementById('countDisplay').textContent = list.length;
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(p => buildPropertyCard(p)).join('');
+  setTimeout(() => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*60); });
+    }, {threshold:0.1});
+    grid.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  }, 50);
+}
+
+function resetAll() {
+  activeFilters = { status:'', type:'', city:'', rooms:0, price:'' };
+  document.querySelectorAll('[data-filter="status"]').forEach(b => b.classList.toggle('active', b.dataset.value === ''));
+  document.querySelectorAll('[data-filter="rooms"]').forEach(b => b.classList.toggle('active', b.dataset.value === '0'));
+  document.getElementById('filterType').value = '';
+  document.getElementById('filterCity').value = '';
+  document.getElementById('filterPrice').value = '';
+  document.getElementById('sortSelect').value = 'default';
+  sortMode = 'default';
+  applyFilters();
+}
+
+// Bind radio buttons
+document.querySelectorAll('.radio-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const flt = btn.dataset.filter;
+    document.querySelectorAll(`[data-filter="${flt}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (flt === 'status') activeFilters.status = btn.dataset.value;
+    if (flt === 'rooms') activeFilters.rooms = parseInt(btn.dataset.value);
+    applyFilters();
+  });
+});
+
+document.getElementById('filterType').addEventListener('change', e => { activeFilters.type = e.target.value; applyFilters(); });
+document.getElementById('filterCity').addEventListener('change', e => { activeFilters.city = e.target.value; applyFilters(); });
+document.getElementById('filterPrice').addEventListener('change', e => { activeFilters.price = e.target.value; applyFilters(); });
+document.getElementById('sortSelect').addEventListener('change', e => { sortMode = e.target.value; applyFilters(); });
+document.getElementById('filterReset').addEventListener('click', resetAll);
+
+// Read URL params
+const urlParams = new URL
